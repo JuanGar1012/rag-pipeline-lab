@@ -1,0 +1,5 @@
+Retrieval tuning usually starts with chunk size, overlap, top-k, and the embedding model.
+
+Smaller chunks can improve precision but may lose context. Larger chunks can improve completeness but may dilute relevance. Overlap helps preserve sentence continuity across chunk boundaries, especially for technical documentation.
+
+Reranking is useful when approximate vector recall is decent but the final result ordering still needs lexical or semantic refinement.

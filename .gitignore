@@ -1,0 +1,11 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+backend/data/rag_lab.db
+backend/data/uploads/
+backend/data/indexes/
+node_modules/
+ui/dist/
