@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import documents, experiments, health
+from app.api.routes import documents, experiments, health, monitoring
 from app.chunking.strategies import ChunkingService
 from app.config import get_settings
 from app.dependencies import ServiceContainer
@@ -16,6 +16,7 @@ from app.generation.service import GenerationService
 from app.indexing.faiss_store import FaissIndexStore
 from app.ingestion.parsers import DocumentParser
 from app.ingestion.service import IngestionService
+from app.monitoring.service import DriftMonitoringService
 from app.pipeline import PipelineService
 from app.retrieval.service import RetrievalService
 from app.storage.database import Database
@@ -47,6 +48,10 @@ def build_container() -> ServiceContainer:
         default_generation_model=settings.ollama_chat_model,
     )
     evaluation_service = EvaluationService()
+    monitoring_service = DriftMonitoringService(
+        embedding_client=embedding_client,
+        embedding_model=settings.ollama_embedding_model,
+    )
     pipeline_service = PipelineService(
         document_repository=document_repository,
         experiment_repository=experiment_repository,
@@ -64,6 +69,7 @@ def build_container() -> ServiceContainer:
         generation_service=generation_service,
         evaluation_service=evaluation_service,
         pipeline_service=pipeline_service,
+        monitoring_service=monitoring_service,
         index_store=index_store,
     )
 
@@ -91,3 +97,4 @@ app.add_middleware(
 app.include_router(health.router, prefix=settings.api_prefix)
 app.include_router(documents.router, prefix=settings.api_prefix)
 app.include_router(experiments.router, prefix=settings.api_prefix)
+app.include_router(monitoring.router, prefix=settings.api_prefix)

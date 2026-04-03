@@ -7,6 +7,7 @@ from app.evaluation.service import EvaluationService
 from app.generation.service import GenerationService
 from app.indexing.faiss_store import FaissIndexStore
 from app.ingestion.service import IngestionService
+from app.monitoring.service import DriftMonitoringService
 from app.pipeline import PipelineService
 from app.retrieval.service import RetrievalService
 from app.storage.database import Database
@@ -24,6 +25,7 @@ class ServiceContainer:
     generation_service: GenerationService
     evaluation_service: EvaluationService
     pipeline_service: PipelineService
+    monitoring_service: DriftMonitoringService
     index_store: FaissIndexStore
 
 

@@ -2,6 +2,7 @@ import type {
   ComparisonResult,
   ConfigOptions,
   DocumentDetail,
+  DriftMonitorResponse,
   ExperimentResult,
   PipelineConfig
 } from "../types";
@@ -51,5 +52,6 @@ export const api = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
-    })
+    }),
+  getDriftMonitor: () => request<DriftMonitorResponse>("/monitoring/drift")
 };

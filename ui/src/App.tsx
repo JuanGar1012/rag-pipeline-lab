@@ -5,6 +5,7 @@ import { ComparePage } from "./pages/ComparePage";
 import { ExperimentPage } from "./pages/ExperimentPage";
 import { HistoryPage } from "./pages/HistoryPage";
 import { LibraryPage } from "./pages/LibraryPage";
+import { MonitorPage } from "./pages/MonitorPage";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/experiment" element={<ExperimentPage />} />
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/compare" element={<ComparePage />} />
+        <Route path="/monitor" element={<MonitorPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AppShell>

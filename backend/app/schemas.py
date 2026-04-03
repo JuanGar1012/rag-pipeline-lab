@@ -105,3 +105,38 @@ class ConfigOptions(BaseModel):
 
 class HealthResponse(BaseModel):
     status: str
+
+
+class DriftStatus(str, Enum):
+    HEALTHY = "healthy"
+    WATCH = "watch"
+    ALERT = "alert"
+
+
+class DriftPoint(BaseModel):
+    experiment_id: str
+    created_at: str
+    semantic_drift: float
+    question_alignment: float
+    grounding_drop: float
+    citation_density: float
+    retrieval_overlap: float
+    hallucination_count: int
+    status: DriftStatus
+
+
+class DriftReport(BaseModel):
+    family: str
+    run_count: int
+    latest_question: str
+    latest_experiment_id: str
+    latest_created_at: str
+    status: DriftStatus
+    alerts: list[str] = Field(default_factory=list)
+    summary: str
+    series: list[DriftPoint] = Field(default_factory=list)
+
+
+class DriftMonitorResponse(BaseModel):
+    recommendation: str
+    reports: list[DriftReport]

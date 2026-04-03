@@ -69,3 +69,34 @@ export interface ComparisonResult {
   left: ExperimentResult;
   right: ExperimentResult;
 }
+
+export type DriftStatus = "healthy" | "watch" | "alert";
+
+export interface DriftPoint {
+  experiment_id: string;
+  created_at: string;
+  semantic_drift: number;
+  question_alignment: number;
+  grounding_drop: number;
+  citation_density: number;
+  retrieval_overlap: number;
+  hallucination_count: number;
+  status: DriftStatus;
+}
+
+export interface DriftReport {
+  family: string;
+  run_count: number;
+  latest_question: string;
+  latest_experiment_id: string;
+  latest_created_at: string;
+  status: DriftStatus;
+  alerts: string[];
+  summary: string;
+  series: DriftPoint[];
+}
+
+export interface DriftMonitorResponse {
+  recommendation: string;
+  reports: DriftReport[];
+}

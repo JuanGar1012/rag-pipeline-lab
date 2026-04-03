@@ -53,6 +53,7 @@ RAG Pipeline Lab is a local-first experimentation platform for retrieval-augment
 - Retrieval inspector with chunk scores, source docs, prompt view, final answer, and citations
 - Answer evaluation with heuristic scoring
 - Side-by-side comparison of two pipeline configurations
+- Drift monitoring over experiment logs using semantic and grounding signals
 - Experiment history persisted in SQLite
 
 ## Backend Design
@@ -81,6 +82,7 @@ This makes it easy to swap chunkers, embedders, rerankers, or generators without
 - `POST /api/experiments/run`
 - `POST /api/experiments/compare`
 - `GET /api/experiments/{experiment_id}`
+- `GET /api/monitoring/drift`
 
 ## Local Setup
 
